@@ -1,4 +1,4 @@
-# App Store Review Tracker
+# Reviewer - An App Store Review Tracker
 
 A React/TypeScript application that fetches and displays App Store reviews for specified iOS applications.
 
