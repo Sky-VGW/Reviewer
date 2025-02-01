@@ -87,6 +87,11 @@ npm run build
 npm start
 ```
 
+3. Open your browser and navigate to:
+```
+http://localhost:3001
+```
+
 ## Testing
 
 Run the test suite:
@@ -98,7 +103,7 @@ npm test
 - The app polls for new reviews every 15 minutes
 - The frontend refreshes its display every 5 minutes
 - Reviews older than 30 days are automatically filtered out
-- The `mockDb` directory stores reviews locally in JSON format
+- The `mockDb` directory stores reviews and app configurations locally in JSON format
 - The `dist` directory is git-ignored and will be created during build
 
 ## License
