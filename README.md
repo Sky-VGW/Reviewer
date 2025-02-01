@@ -100,3 +100,6 @@ npm test
 - Reviews older than 30 days are automatically filtered out
 - The `mockDb` directory stores reviews locally in JSON format
 - The `dist` directory is git-ignored and will be created during build
+
+## License
+- ISC
