@@ -3,8 +3,7 @@
     {
       "id": "595068606",
       "name": "Example App",
-      "rssFeedUrl": "https://itunes.apple.com/us/rss/customerreviews/id=595068606/sortBy=mostRecent/page=1/json",
-      "lastPolled": "2025-02-01T15:09:54.882Z"
+      "rssFeedUrl": "https://itunes.apple.com/us/rss/customerreviews/id=595068606/sortBy=mostRecent/page=1/json"
     }
   ]
 }
