@@ -67,7 +67,7 @@ export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
     const data = await fetchReviews(appConfig.rssFeedUrl);
     
     if (!data?.feed?.entry?.length) {
-      throw new ReviewServiceError('Invalid API response structure');
+      throw new Error('Invalid API response structure');
     }
     // get entries from Apple API response
     const entries = data.feed.entry;
@@ -96,14 +96,6 @@ export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
       )
     });
   } catch (error) {
-    throw new ReviewServiceError('Failed to poll reviews', error);
+    throw new Error(`Failed to poll reviews: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 };
-
-//error handler
-class ReviewServiceError extends Error {
-  constructor(message: string, public readonly cause?: unknown) {
-    super(message);
-    this.name = 'ReviewServiceError';
-  }
-}
