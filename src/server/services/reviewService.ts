@@ -54,6 +54,7 @@ export const getRecentReviews = async (appId?: string | undefined): Promise<AppS
   const db = await readReviewsDb();
   const allReviews = db.reviews;
   
+  // if appId is provided, filter reviews by appId
   const selectedReviews = appId 
   ? allReviews.filter((review: AppStoreReview) => review.appId === appId)
   : allReviews;
