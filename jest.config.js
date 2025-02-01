@@ -3,5 +3,5 @@ export default {
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
-  setupFilesAfterEnv: ['<rootDir>/src/client/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/src/client/tests/setupTests.ts'],
 };
