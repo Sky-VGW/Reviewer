@@ -43,8 +43,9 @@ const filterAndSortReviews = (reviews: AppStoreReview[]): AppStoreReview[] => {
 };
 
 // IO function to fetch reviews from Apple API
-const fetchReviews = async (url: string): Promise<AppleApiResponse> => {
-  const response = await fetch(url);
+const fetchReviews = async (appId: string): Promise<AppleApiResponse> => {
+  const rssFeedUrl = `https://itunes.apple.com/us/rss/customerreviews/id=${appId}/sortBy=mostRecent/page=1/json`;
+  const response = await fetch(rssFeedUrl);
   const rawApiReviews: AppleApiResponse = await response.json();
   return rawApiReviews;
 };
@@ -65,7 +66,7 @@ export const getRecentReviews = async (appId?: string | undefined): Promise<AppS
 
 export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
   try {
-    const data = await fetchReviews(appConfig.rssFeedUrl);
+    const data = await fetchReviews(appConfig.id);
     
     if (!data?.feed?.entry?.length) {
       throw new Error('Invalid API response structure');
