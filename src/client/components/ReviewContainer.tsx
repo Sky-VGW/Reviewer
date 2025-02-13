@@ -15,7 +15,7 @@ const ReviewContainer: React.FC = () => {
         const data = await response.json();
         setReviews(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
+        setError('An error occurred while fetching reviews');
       } finally {
         setLoading(false);
       }
@@ -28,7 +28,7 @@ const ReviewContainer: React.FC = () => {
   }, []);
 
   if (loading) return <div>Loading reviews...</div>;
-  if (error) return <div>Error: {error}</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <>

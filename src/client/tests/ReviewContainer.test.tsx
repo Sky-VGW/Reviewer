@@ -47,7 +47,7 @@ describe('ReviewContainer', () => {
     render(<ReviewContainer />);
 
     await waitFor(() => {
-      expect(screen.getByText('Error: Failed to fetch reviews')).toBeInTheDocument();
+      expect(screen.getByText('An error occurred while fetching reviews')).toBeInTheDocument();
     })
   });
 });
