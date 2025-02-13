@@ -52,6 +52,7 @@ const fetchReviews = async (appId: string): Promise<AppleApiResponse> => {
     }
 
     const rawApiReviews: AppleApiResponse = await response.json();
+    // if API data is in expected format return it, otherwise normalize it
     return rawApiReviews?.feed?.entry?.length
     ? rawApiReviews
     : {
