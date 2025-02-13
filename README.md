@@ -52,7 +52,6 @@ Edit `mockDb/apps.json` to include your App Store app information:
     {
       "id": "YOUR_APP_ID",
       "name": "Your App Name",
-      "rssFeedUrl": "https://itunes.apple.com/us/rss/customerreviews/id=YOUR_APP_ID/sortBy=mostRecent/page=1/json"
     }
   ]
 }
