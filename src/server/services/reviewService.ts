@@ -12,7 +12,6 @@ const parseReview = (entry: AppleReviewEntry, appId: string): AppStoreReview => 
   if (!entry) {
     throw new Error('Entry is invalid');
   }
-
   // if entry is from Apple API, parse it
   if (isAppleReview(entry)) {
     return {
@@ -44,10 +43,25 @@ const filterAndSortReviews = (reviews: AppStoreReview[]): AppStoreReview[] => {
 
 // IO function to fetch reviews from Apple API
 const fetchReviews = async (appId: string): Promise<AppleApiResponse> => {
-  const rssFeedUrl = `https://itunes.apple.com/us/rss/customerreviews/id=${appId}/sortBy=mostRecent/page=1/json`;
-  const response = await fetch(rssFeedUrl);
-  const rawApiReviews: AppleApiResponse = await response.json();
-  return rawApiReviews;
+  try {
+    const rssFeedUrl = `https://itunes.apple.com/us/rss/customerreviews/id=${appId}/sortBy=mostRecent/page=1/json`;
+    const response = await fetch(rssFeedUrl);
+
+    if (!response.ok) {
+      throw new Error(`App Store API returned ${response.status} for app ${appId}`);
+    }
+
+    const rawApiReviews: AppleApiResponse = await response.json();
+    return rawApiReviews?.feed?.entry?.length
+    ? rawApiReviews
+    : {
+      feed: {
+        entry: []
+      }
+    };
+  } catch (error) {
+    throw new Error(`Failed to fetch reviews from Apple API: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 };
 
 // Main service functions
@@ -67,10 +81,6 @@ export const getRecentReviews = async (appId?: string | undefined): Promise<AppS
 export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
   try {
     const data = await fetchReviews(appConfig.id);
-    
-    if (!data?.feed?.entry?.length) {
-      throw new Error('Invalid API response structure');
-    }
     // get entries from Apple API response
     const entries = data.feed.entry;
     // parse entries into AppStoreReview format
@@ -87,7 +97,6 @@ export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
         reviews: [...reviewsDb.reviews, ...uniqueNewReviews]
       });
     }
-    
     // update lastPolled timestamp for the app
     const appsDb = await readAppsDb();
     await writeAppsDb({
@@ -98,6 +107,6 @@ export const pollReviews = async (appConfig: AppConfig): Promise<void> => {
       )
     });
   } catch (error) {
-    throw new Error(`Failed to poll reviews: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error(`Error polling reviews for app ${appConfig.id}:`, error)
   }
 };
