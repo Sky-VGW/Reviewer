@@ -2,8 +2,11 @@
   "apps": [
     {
       "id": "595068606",
-      "name": "Example App",
-      "lastPolled": "2025-02-12T15:34:58.264Z"
+      "name": "Tab"
+    },
+    {
+      "id": "835599320",
+      "name": "TikTok"
     }
   ]
 }
