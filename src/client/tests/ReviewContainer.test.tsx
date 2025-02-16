@@ -34,7 +34,7 @@ describe('ReviewContainer', () => {
 
     await waitFor(() => {
       expect(screen.getByText('Trash!')).toBeInTheDocument();
-      expect(screen.getByText('B1gg3stH8t3r')).toBeInTheDocument();
+      expect(screen.getByText('B1gg3stH8t3r -')).toBeInTheDocument();
       expect(screen.queryByText('I love this app!')).not.toBeInTheDocument();
     });
   });
