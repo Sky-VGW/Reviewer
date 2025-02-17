@@ -28,7 +28,6 @@ export interface ReviewsDb {
 export interface AppConfig {
   id: string;
   name: string;
-  rssFeedUrl: string;
   lastPolled?: string;
 }
 
